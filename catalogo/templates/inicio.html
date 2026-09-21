@@ -2,19 +2,46 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>TechCovers</title>
-</head>
+
 <head>
     <meta charset="UTF-8">
     <title>TechCovers</title>
 
-    <style>
-        .header-principal img {
-            width: 230px;
-        }
+   <style>
+    .header-principal {
+        height: 100px;
+        display: flex;
+        align-items: center;
+    }
+
+    .header-principal img {
+        width: 230px;
+    }
+
+
+    .header-principal img {
+        width: 230px;
+    }
+
+    .buscador {
+    margin-left: 100px;
+    display: flex;
+}
+
+    .buscador input {
+        width: 400px;
+        padding: 10px;
+    }
+
+    .buscador button {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+    }
+    
     </style>
+
 </head>
 
 <body>
@@ -24,6 +51,11 @@
         <div class="header-principal">
 
             <img src="{% static 'imagenes/logo_principal.png' %}" alt="TechCovers">
+            
+            <div class="buscador">
+             <input type="text" placeholder="Buscar">
+             <button>Buscar</button>
+            </div>
 
         </div>
 
