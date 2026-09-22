@@ -7,48 +7,81 @@
     <meta charset="UTF-8">
     <title>TechCovers</title>
 
-</html>
+    <style>
 
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            margin: 0;
+        }
 
-   <style>
-    
-    .header-principal {
-        background-color: #EFE6D5;
-    }
+        .header-principal {
+            background-color: #E8DDC9;
+            min-height: 100px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
 
-    .header-principal {
-        height: 100px;
-        display: flex;
-        align-items: center;
-    }
+        .header-principal img {
+            width: 230px;
+            height: auto;
+        }
 
-    .header-principal img {
-        width: 230px;
-    }
+        .buscador {
+            flex: 1;
+            display: flex;
+            max-width: 550px;
+        }
 
+        .buscador input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #777;
+        }
 
-    .header-principal img {
-        width: 230px;
-    }
+        .buscador button {
+            background-color: #AECDD1;
+            color: #1E2932;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
 
-    .buscador {
-    margin-left: 100px;
-    display: flex;
-}
+        .reserva-header button {
+            background-color: #AECDD1;
+            color: #1E2932;
+            padding: 10px 25px;
+            border: none;
+            cursor: pointer;
+        }
 
-    .buscador input {
-        width: 400px;
-        padding: 10px;
-    }
+        @media (max-width: 800px) {
 
-    .buscador button {
-        background-color: black;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-    }
-    
+            .header-principal {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-principal img {
+                width: 200px;
+            }
+
+            .buscador {
+                width: 100%;
+                max-width: none;
+            }
+
+            .reserva-header {
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+
     </style>
 
 </head>
@@ -60,10 +93,14 @@
         <div class="header-principal">
 
             <img src="{% static 'imagenes/logo_principal.png' %}" alt="TechCovers">
-            
+
             <div class="buscador">
-             <input type="text" placeholder="Buscar">
-             <button>Buscar</button>
+                <input type="text" placeholder="Buscar">
+                <button>Buscar</button>
+            </div>
+
+            <div class="reserva-header">
+                <button>Reservar</button>
             </div>
 
         </div>
@@ -71,4 +108,5 @@
     </header>
 
 </body>
+
 </html>
