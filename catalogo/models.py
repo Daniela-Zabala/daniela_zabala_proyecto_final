@@ -11,6 +11,9 @@ class Categoria(models.Model):
         return self.nombre
 
 
+# un product de tech covers tiene nombre, descripcion, precio y stock 
+#Relacion catgoria producto 1:N
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
@@ -38,7 +41,7 @@ class Reserva(models.Model):
     def __str__(self):
         return f"Reserva {self.id} - {self.usuario.username}"
 
-
+#indicamos que productos hay qn cada reserva y cuantas unidades se han reservado
 class ProductoReserva(models.Model):
     producto = models.ForeignKey(
         Producto,
