@@ -5,6 +5,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>TechCovers</title>
 
     <style>
@@ -15,103 +17,349 @@
 
         body {
             margin: 0;
+            font-family: Arial, sans-serif;
+            color: #1E2932;
+            background-color: white;
         }
 
-        /* ENCABEZADO PRINCIPAL */
+        /* =========================
+           ENCABEZADO
+        ========================= */
 
         .header-principal {
             background-color: #E8DDC9;
             min-height: 100px;
-            padding: 10px;
+            padding: 10px 5%;
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 35px;
         }
 
-        .header-principal img {
+        .logo {
             width: 230px;
             height: auto;
+            flex-shrink: 0;
         }
-
-        /* BUSCADOR */
 
         .buscador {
             flex: 1;
             display: flex;
-            max-width: 550px;
+            max-width: 670px;
+            margin: auto;
         }
 
         .buscador input {
             width: 100%;
-            padding: 10px;
+            height: 42px;
+            padding: 10px 15px;
             border: 1px solid #777;
+            outline: none;
+            font-size: 14px;
         }
 
         .buscador button {
+            width: 130px;
+            border: none;
             background-color: #AECDD1;
             color: #1E2932;
-            padding: 10px 20px;
-            border: none;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        /* BOTÓN RESERVAR */
+        .reserva-header {
+            flex-shrink: 0;
+        }
 
         .reserva-header button {
             background-color: #AECDD1;
             color: #1E2932;
-            padding: 10px 25px;
             border: none;
+            padding: 12px 25px;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        /* BARRA DE NAVEGACIÓN */
+        /* =========================
+           MENÚ
+        ========================= */
 
         .menu-principal {
-            background-color: #AECDD1;
+            background-color: #82B5C9;
+            min-height: 52px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 50px;
-            padding: 15px;
+            gap: 55px;
+            padding: 12px 20px;
         }
 
         .menu-principal a {
-            color: #1E2932;
+            color: white;
             text-decoration: none;
             font-weight: bold;
         }
 
         .menu-principal a:hover {
+            opacity: 0.75;
+        }
+
+        /* =========================
+           IMAGEN PRINCIPAL
+        ========================= */
+
+        .imagen-principal {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* =========================
+           NUESTRA PROPUESTA
+        ========================= */
+
+        .propuesta {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 65px 25px 55px;
+        }
+
+        .propuesta h2 {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            margin: 0 0 18px;
+            color: #111827;
+        }
+
+        .linea {
+            width: 100px;
+            height: 1px;
+            background-color: #D6D6D6;
+            margin: 0 auto 25px;
+        }
+
+        .propuesta p {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 17px;
+            line-height: 1.8;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        /* =========================
+           COMO FUNCIONA
+        ========================= */
+
+        .como-funciona {
+            padding: 60px 25px;
+            text-align: center;
+        }
+
+        .como-funciona h2 {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            margin: 0 0 15px;
+            color: #111827;
+        }
+
+        .como-funciona-subtitulo {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .pasos {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .paso {
+            flex: 1;
+            background-color: #E8DDC9;
+            padding: 30px 25px;
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .numero {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #AECDD1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .paso h3 {
+            margin: 0 0 15px;
+            font-size: 20px;
+        }
+
+        .paso p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           DESCUBRE NUESTROS PRODUCTOS
+        ========================= */
+
+        .descubre {
+            background-color: #AECDD1;
+            text-align: center;
+            padding: 65px 25px;
+        }
+
+        .descubre h2 {
+            font-size: 32px;
+            margin: 0 0 15px;
+            color: #111827;
+        }
+
+        .descubre p {
+            font-size: 18px;
+            margin: 0 0 30px;
+        }
+
+        .boton-catalogo {
+            display: inline-block;
+            background-color: #E8DDC9;
+            color: #1E2932;
+            padding: 14px 32px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .boton-catalogo:hover {
+            opacity: 0.85;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background-color: #E8DDC9;
+            padding: 55px 8%;
+        }
+
+        .footer-contenido {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-logo {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+
+        .footer-columna h3 {
+            font-family: Georgia, serif;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .footer-columna p {
+            margin: 8px 0;
+        }
+
+        .footer-columna a {
+            display: block;
+            color: #6FAAC5;
+            text-decoration: none;
+            margin: 12px 0;
+        }
+
+        .footer-columna a:hover {
             text-decoration: underline;
         }
 
-        /* RESPONSIVE */
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
 
             .header-principal {
                 flex-wrap: wrap;
                 justify-content: center;
             }
 
-            .header-principal img {
+            .logo {
                 width: 200px;
             }
 
             .buscador {
                 width: 100%;
-                max-width: none;
+                max-width: 600px;
+                order: 3;
             }
 
             .reserva-header {
-                width: 100%;
-                text-align: center;
+                order: 2;
             }
 
             .menu-principal {
+                gap: 25px;
                 flex-wrap: wrap;
-                gap: 20px;
+            }
+
+            .pasos {
+                flex-direction: column;
+                max-width: 650px;
+            }
+
+            .footer-contenido {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .header-principal {
+                padding: 15px;
+            }
+
+            .buscador {
+                width: 100%;
+            }
+
+            .buscador input {
+                min-width: 0;
+            }
+
+            .buscador button {
+                width: 100px;
+            }
+
+            .menu-principal {
+                gap: 18px;
+            }
+
+            .propuesta h2,
+            .como-funciona h2,
+            .descubre h2 {
+                font-size: 27px;
             }
 
         }
@@ -120,38 +368,251 @@
 
 </head>
 
+
 <body>
 
-    <!-- ENCABEZADO -->
+    <!-- =========================
+         ENCABEZADO
+    ========================= -->
 
     <header>
 
         <div class="header-principal">
 
-            <img src="{% static 'imagenes/logo_principal.png' %}" alt="TechCovers">
+            <img
+                src="{% static 'imagenes/logo_principal.png' %}"
+                alt="TechCovers"
+                class="logo"
+            >
 
             <div class="buscador">
-                <input type="text" placeholder="Buscar">
-                <button>Buscar</button>
+
+                <input
+                    type="text"
+                    placeholder="¿Qué estás buscando?"
+                >
+
+                <button>
+                    Buscar
+                </button>
+
             </div>
 
             <div class="reserva-header">
-                <button>Reservar</button>
+
+                <button>
+                    Reservar
+                </button>
+
             </div>
 
         </div>
 
     </header>
 
-    <!-- MENÚ -->
 
-   <nav class="menu-principal">
-    
-        <a href="{% url 'inicio' %}">Inicio</a>
-        <a href="{% url 'catalogo' %}">Catálogo</a>
-        <a href="{% url 'contacto' %}">Contacto</a>
+    <!-- =========================
+         MENÚ
+    ========================= -->
+
+    <nav class="menu-principal">
+
+        <a href="{% url 'inicio' %}">
+            Inicio
+        </a>
+
+        <a href="{% url 'catalogo' %}">
+            Catálogo
+        </a>
+
+        <a href="{% url 'contacto' %}">
+            Contacto
+        </a>
 
     </nav>
+
+
+    <!-- =========================
+         CONTENIDO
+    ========================= -->
+
+    <main>
+
+        <!-- IMAGEN PRINCIPAL -->
+
+        <img
+            src="{% static 'imagenes/inicio.png' %}"
+            alt="TechCovers"
+            class="imagen-principal"
+        >
+
+
+        <!-- NUESTRA PROPUESTA -->
+
+        <section class="propuesta">
+
+            <h2>
+                Nuestra propuesta
+            </h2>
+
+            <div class="linea"></div>
+
+            <p>
+                Queremos facilitar la búsqueda de accesorios para
+                dispositivos móviles ofreciendo productos que
+                combinan diseño, funcionalidad y protección.
+                En TechCovers puedes consultar nuestro catálogo,
+                conocer las características de cada producto y
+                reservar aquellos accesorios que más te interesen.
+            </p>
+
+        </section>
+
+
+        <!-- COMO FUNCIONA -->
+
+        <section class="como-funciona">
+
+            <h2>
+                ¿Cómo funciona TechCovers?
+            </h2>
+
+            <p class="como-funciona-subtitulo">
+                Reservar tus accesorios es muy sencillo.
+            </p>
+
+
+            <div class="pasos">
+
+                <div class="paso">
+
+                    <div class="numero">
+                        1
+                    </div>
+
+                    <h3>
+                        Explora
+                    </h3>
+
+                    <p>
+                        Consulta nuestro catálogo y descubre
+                        los diferentes accesorios disponibles.
+                    </p>
+
+                </div>
+
+
+                <div class="paso">
+
+                    <div class="numero">
+                        2
+                    </div>
+
+                    <h3>
+                        Elige
+                    </h3>
+
+                    <p>
+                        Selecciona el producto que más te interese
+                        y consulta toda su información.
+                    </p>
+
+                </div>
+
+
+                <div class="paso">
+
+                    <div class="numero">
+                        3
+                    </div>
+
+                    <h3>
+                        Reserva
+                    </h3>
+
+                    <p>
+                        Realiza tu reserva de forma sencilla
+                        y asegura el producto que necesitas.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DESCUBRE NUESTROS PRODUCTOS -->
+
+        <section class="descubre">
+
+            <h2>
+                Descubre nuestros productos
+            </h2>
+
+            <p>
+                Consulta nuestro catálogo de accesorios para móviles.
+            </p>
+
+            <a
+                href="{% url 'catalogo' %}"
+                class="boton-catalogo"
+            >
+                Ver catálogo
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="footer-contenido">
+
+            <div class="footer-columna">
+
+                <img
+                    src="{% static 'imagenes/logo_principal.png' %}"
+                    alt="TechCovers"
+                    class="footer-logo"
+                >
+
+                <p>
+                    techcovers@gmail.com
+                </p>
+
+            </div>
+
+
+            <div class="footer-columna">
+
+                <h3>
+                    TechCovers
+                </h3>
+
+                <a href="{% url 'inicio' %}">
+                    Inicio
+                </a>
+
+                <a href="{% url 'catalogo' %}">
+                    Catálogo
+                </a>
+
+                <a href="{% url 'contacto' %}">
+                    Contacto
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </footer>
 
 </body>
 
