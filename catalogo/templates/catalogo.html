@@ -5,29 +5,116 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>TechCovers</title>
+    <title>Catálogo - TechCovers</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        /* ENCABEZADO */
+
+        .header-principal {
+            background-color: #E8DDC9;
+            min-height: 100px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header-principal img {
+            width: 230px;
+            height: auto;
+        }
+
+        .titulo-header {
+            flex: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E2932;
+        }
+
+        /* MENÚ */
+
+        .menu-principal {
+            background-color: #AECDD1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 15px 0;
+            width: 100%;
+        }
+
+        .menu-principal a {
+            color: #1E2932;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .menu-principal a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .header-principal {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-principal img {
+                width: 200px;
+            }
+
+            .titulo-header {
+                width: 100%;
+            }
+
+            .menu-principal {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-principal">
+
+            <img src="{% static 'imagenes/logo_principal.png' %}" alt="TechCovers">
+
+            <div class="titulo-header">
+                Catálogo
+            </div>
+
+        </div>
+
+    </header>
+
+    <nav class="menu-principal">
+
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'catalogo' %}">Catálogo</a>
+        <a href="{% url 'contacto' %}">Contacto</a>
+
+    </nav>
+
+</body>
 
 </html>
-
-
-
-   <style>
-    
-    .header-principal {
-        background-color: #EFE6D5;
-    }
-
-    .header-principal {
-        height: 100px;
-        display: flex;
-        align-items: center;
-    }
-
-    .header-principal img {
-        width: 230px;
-    }
-
-
-    .header-principal img {
-        width: 230px;
-    }

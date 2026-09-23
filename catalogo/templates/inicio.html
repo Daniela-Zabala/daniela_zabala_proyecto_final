@@ -17,6 +17,8 @@
             margin: 0;
         }
 
+        /* ENCABEZADO PRINCIPAL */
+
         .header-principal {
             background-color: #E8DDC9;
             min-height: 100px;
@@ -30,6 +32,8 @@
             width: 230px;
             height: auto;
         }
+
+        /* BUSCADOR */
 
         .buscador {
             flex: 1;
@@ -51,6 +55,8 @@
             cursor: pointer;
         }
 
+        /* BOTÓN RESERVAR */
+
         .reserva-header button {
             background-color: #AECDD1;
             color: #1E2932;
@@ -58,6 +64,29 @@
             border: none;
             cursor: pointer;
         }
+
+        /* BARRA DE NAVEGACIÓN */
+
+        .menu-principal {
+            background-color: #AECDD1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 15px;
+        }
+
+        .menu-principal a {
+            color: #1E2932;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .menu-principal a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
 
         @media (max-width: 800px) {
 
@@ -80,6 +109,11 @@
                 text-align: center;
             }
 
+            .menu-principal {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
         }
 
     </style>
@@ -87,6 +121,8 @@
 </head>
 
 <body>
+
+    <!-- ENCABEZADO -->
 
     <header>
 
@@ -106,6 +142,16 @@
         </div>
 
     </header>
+
+    <!-- MENÚ -->
+
+   <nav class="menu-principal">
+    
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'catalogo' %}">Catálogo</a>
+        <a href="{% url 'contacto' %}">Contacto</a>
+
+    </nav>
 
 </body>
 
