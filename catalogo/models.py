@@ -42,7 +42,7 @@ class Reserva(models.Model):
         return f"Reserva {self.id} - {self.usuario.username}"
 
 #indicamos que productos hay qn cada reserva y cuantas unidades se han reservado
-class ProductoReserva(models.Model):
+class Producto_reserva(models.Model):
     producto = models.ForeignKey(
         Producto,
         on_delete=models.CASCADE,
