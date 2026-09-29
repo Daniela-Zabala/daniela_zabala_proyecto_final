@@ -5,6 +5,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Catálogo - TechCovers</title>
 
     <style>
@@ -15,6 +17,9 @@
 
         body {
             margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f6f1;
+            color: #1E2932;
         }
 
         /* ENCABEZADO */
@@ -22,7 +27,7 @@
         .header-principal {
             background-color: #E8DDC9;
             min-height: 100px;
-            padding: 10px;
+            padding: 10px 30px;
             display: flex;
             align-items: center;
             gap: 30px;
@@ -63,6 +68,85 @@
             text-decoration: underline;
         }
 
+        /* CATÁLOGO */
+
+        .contenedor-catalogo {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-catalogo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .titulo-catalogo h2 {
+            margin-bottom: 8px;
+        }
+
+        .titulo-catalogo p {
+            color: #64748B;
+        }
+
+        /* PRODUCTOS */
+
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .producto {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .producto h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #1E2932;
+        }
+
+        .producto p {
+            color: #64748B;
+            line-height: 1.5;
+        }
+
+        .categoria {
+            display: inline-block;
+            background-color: #AECDD1;
+            color: #1E2932;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .precio {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #1E2932;
+        }
+
+        .stock {
+            font-size: 14px;
+            color: #64748B;
+        }
+
+        /* MENSAJE SI NO HAY PRODUCTOS */
+
+        .sin-productos {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
         /* RESPONSIVE */
 
         @media (max-width: 800px) {
@@ -85,6 +169,10 @@
                 gap: 20px;
             }
 
+            .productos {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -97,7 +185,10 @@
 
         <div class="header-principal">
 
-            <img src="{% static 'imagenes/logo_principal.png' %}" alt="TechCovers">
+            <img
+                src="{% static 'imagenes/logo_principal.png' %}"
+                alt="TechCovers"
+            >
 
             <div class="titulo-header">
                 Catálogo
@@ -107,13 +198,82 @@
 
     </header>
 
+
     <nav class="menu-principal">
 
         <a href="{% url 'inicio' %}">Inicio</a>
+
         <a href="{% url 'catalogo' %}">Catálogo</a>
+
         <a href="{% url 'contacto' %}">Contacto</a>
 
     </nav>
+
+
+    <!-- CONTENIDO DEL CATÁLOGO -->
+
+    <main class="contenedor-catalogo">
+
+        <div class="titulo-catalogo">
+
+            <h2>Productos disponibles</h2>
+
+            <p>
+                Consulta nuestros accesorios para dispositivos móviles.
+            </p>
+
+        </div>
+
+
+        {% if productos %}
+
+            <div class="productos">
+
+                {% for producto in productos %}
+
+                    <div class="producto">
+
+                        <span class="categoria">
+                            {{ producto.categoria.nombre }}
+                        </span>
+
+                        <h3>
+                            {{ producto.nombre }}
+                        </h3>
+
+                        <p>
+                            {{ producto.descripcion }}
+                        </p>
+
+                        <div class="precio">
+                            {{ producto.precio }} €
+                        </div>
+
+                        <div class="stock">
+                            Existencias: {{ producto.stock }}
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="sin-productos">
+
+                <h3>No hay productos disponibles</h3>
+
+                <p>
+                    Actualmente no hay productos registrados en el catálogo.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
 
 </body>
 

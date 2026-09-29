@@ -21,18 +21,33 @@ from catalogo import views
 
 
 urlpatterns = [
-    #panel de aministración Django
+
+    #panel de administracion de Django
     path('admin/', admin.site.urls),
 
-    #páginas de techcovers
+    # Páginas principales de TechCovers
     path('', views.inicio, name='inicio'),
     path('catalogo/', views.catalogo, name='catalogo'),
     path('contacto/', views.contacto, name='contacto'),
 
-    #gestión de productos
-     path(
+    #gestion de productos
+    path(
         'producto/nuevo/',
         views.crear_producto,
         name='crear_producto'
+    ),
+
+    #registro de usuarios
+    path(
+        'registro/',
+        views.registro,
+        name='registro'
+    ),
+
+    #inicio de sesion
+    path(
+        'login/',
+        views.iniciar_sesion,
+        name='login'
     ),
 ]
