@@ -1,120 +1,119 @@
-{% load static %}
+{% extends 'plantilla_paginas.html' %}
 
-<!DOCTYPE html>
-<html lang="es">
+{% block titulo_pagina %}
+Contacto
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Contacto - TechCovers</title>
 
-    <style>
+{% block contenido_dinamico %}
 
-        * {
-            box-sizing: border-box;
-        }
+<div class="contacto-contenedor">
 
-        body {
-            margin: 0;
-        }
+    <div class="contacto-titulo">
 
-        /* ENCABEZADO */
+        <h2>
+            Contacta con nosotros
+        </h2>
 
-        .header-principal {
-            background-color: #E8DDC9;
-            min-height: 100px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
+        <p>
+            Si tienes alguna duda sobre nuestros productos o reservas,
+            puedes ponerte en contacto con TechCovers.
+        </p>
 
-        .header-principal img {
-            width: 230px;
-            height: auto;
-        }
+    </div>
 
-        .titulo-header {
-            flex: 1;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #1E2932;
-        }
 
-        /* MENÚ */
+    <div class="contacto-informacion">
 
-        .menu-principal {
-            background-color: #AECDD1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            padding: 15px 0;
-            width: 100%;
-        }
+        <div class="contacto-bloque">
 
-        .menu-principal a {
-            color: #1E2932;
-            text-decoration: none;
-            font-weight: bold;
-        }
+            <h3>
+                Correo electrónico
+            </h3>
 
-        .menu-principal a:hover {
-            text-decoration: underline;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 800px) {
-
-            .header-principal {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .header-principal img {
-                width: 200px;
-            }
-
-            .titulo-header {
-                width: 100%;
-            }
-
-            .menu-principal {
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <header>
-
-        <div class="header-principal">
-
-            <img src="{% static 'imagenes/logo_principal.png' %}" alt="TechCovers">
-
-            <div class="titulo-header">
-                Contacto
-            </div>
+            <p>
+                techcovers@gmail.com
+            </p>
 
         </div>
 
-    </header>
 
-    <nav class="menu-principal">
+        <div class="contacto-bloque">
 
-        <a href="{% url 'inicio' %}">Inicio</a>
-        <a href="{% url 'catalogo' %}">Catálogo</a>
-        <a href="{% url 'contacto' %}">Contacto</a>
+            <h3>
+                ¿En qué podemos ayudarte?
+            </h3>
 
-    </nav>
+            <p>
+                Puedes contactar con nosotros para consultar información
+                sobre nuestros productos y reservas.
+            </p>
 
-</body>
+        </div>
 
-</html>
+    </div>
+
+</div>
+
+
+<style>
+
+    .contacto-contenedor {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 0 25px;
+    }
+
+    .contacto-titulo {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .contacto-titulo h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .contacto-titulo p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    .contacto-informacion {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .contacto-bloque {
+        background-color: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 25px;
+        width: 100%;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .contacto-bloque h3 {
+        margin-top: 0;
+        color: #1E2932;
+    }
+
+    .contacto-bloque p {
+        font-family: Arial, sans-serif;
+        color: #64748B;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+
+        .contacto-informacion {
+            flex-direction: column;
+        }
+
+    }
+
+</style>
+
+{% endblock %}

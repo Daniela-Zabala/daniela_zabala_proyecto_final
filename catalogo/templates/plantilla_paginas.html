@@ -1,0 +1,252 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TechCovers</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Georgia, serif;
+            color: #1E2932;
+            background-color: #f8f6f1;
+        }
+
+        /* HEADER */
+
+        .header-principal {
+            background-color: #E8DDC9;
+            min-height: 105px;
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-header {
+            width: 230px;
+            height: auto;
+        }
+
+        .titulo-header {
+            flex: 1;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-right: 230px;
+        }
+
+        /* MENÚ */
+
+        .menu-principal {
+            background-color: #AECDD1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 15px 0;
+            width: 100%;
+        }
+
+        .menu-principal a {
+            color: #1E2932;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .menu-principal a:hover {
+            text-decoration: underline;
+        }
+
+        /* CONTENIDO */
+
+        .contenido-principal {
+            flex: 1;
+        }
+
+        /* FOOTER */
+
+        .footer-principal {
+            background-color: #E8DDC9;
+            padding: 35px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .footer-logo img {
+            width: 180px;
+            height: auto;
+        }
+
+        .footer-correo {
+            font-family: Arial, sans-serif;
+            margin-top: 10px;
+        }
+
+        .footer-enlaces {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-enlaces h3 {
+            margin: 0 0 5px 0;
+        }
+
+        .footer-enlaces a {
+            color: #5FA6D2;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-enlaces a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .header-principal {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo-header {
+                width: 200px;
+            }
+
+            .titulo-header {
+                width: 100%;
+                margin-right: 0;
+                margin-top: 10px;
+            }
+
+            .menu-principal {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .footer-principal {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+                padding: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- HEADER COMÚN DE TECHCOVERS -->
+
+    <header class="header-principal">
+
+        <img
+            src="{% static 'imagenes/logo_principal.png' %}"
+            alt="TechCovers"
+            class="logo-header"
+        >
+
+        <div class="titulo-header">
+            {% block titulo_pagina %}
+            TechCovers
+            {% endblock %}
+        </div>
+
+    </header>
+
+
+    <!-- MENÚ COMÚN -->
+
+    <nav class="menu-principal">
+
+        <a href="{% url 'inicio' %}">
+            Inicio
+        </a>
+
+        <a href="{% url 'catalogo' %}">
+            Catálogo
+        </a>
+
+        <a href="{% url 'contacto' %}">
+            Contacto
+        </a>
+
+    </nav>
+
+
+    <!-- CONTENIDO ESPECÍFICO DE CADA PÁGINA -->
+
+    <main class="contenido-principal">
+
+        {% block contenido_dinamico %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- FOOTER COMÚN DE TECHCOVERS -->
+
+    <footer class="footer-principal">
+
+        <div class="footer-logo">
+
+            <img
+                src="{% static 'imagenes/logo_principal.png' %}"
+                alt="TechCovers"
+            >
+
+            <div class="footer-correo">
+                techcovers@gmail.com
+            </div>
+
+        </div>
+
+
+        <div class="footer-enlaces">
+
+            <h3>
+                TechCovers
+            </h3>
+
+            <a href="{% url 'inicio' %}">
+                Inicio
+            </a>
+
+            <a href="{% url 'catalogo' %}">
+                Catálogo
+            </a>
+
+            <a href="{% url 'contacto' %}">
+                Contacto
+            </a>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
