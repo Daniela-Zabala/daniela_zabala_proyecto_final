@@ -1,32 +1,32 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Producto, Categoria, Producto_reserva, Reserva
 
+from .models import Producto
+
+
+# Formulario para que el usuario pueda registrarse
 class RegistroUsuarioForm(UserCreationForm):
-    email = forms.EmailField(required=False, label="Correo electrónico")
+    email = forms.EmailField(
+        required=False,
+        label="Correo electrónico"
+    )
 
     class Meta:
         model = User
         fields = ['username', 'email']
 
 
-class AutorForm(forms.ModelForm):
+# Formulario para crear o editar un producto
+class ProductoForm(forms.ModelForm):
     class Meta:
-        model = Reserva
-        fields = ['nombre']
+        model = Producto
+        fields = [
+            'nombre',
+            'descripcion',
+            'precio',
+            'stock',
+            'categoria'
+        ]
 
 
-class CategoriaForm(forms.ModelForm):
-    class Meta:
-        model = Categoria
-        fields = ['nombre']
-
-
-class LibroForm(forms.ModelForm):
-    class Meta:
-        model = Producto_reserva
-        fields = ['titulo', 'autor', 'anio', 'categorias']
-        widgets = {
-            'categorias': forms.SelectMultiple,
-        }

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block contenido_dinamico %}
+
+<div class="max-w-xl mx-auto">
+
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+
+        <div class="bg-slate-900 px-6 py-4">
+            <h2 class="text-2xl font-bold text-white">
+
+                {% if titulo_formulario %}
+                    {{ titulo_formulario }} 
+                {% elif form.instance.pk %}
+                    ✏️ Editar producto
+                {% else %}
+                    📦 Añadir nuevo producto
+                {% endif %}
+
+            </h2>
+        </div>
+
+
+        <form method="POST" class="p-6 space-y-5">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="bg-red-100 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            {% for campo in form %}
+
+                <div>
+
+                    <label
+                        for="{{ campo.id_for_label }}"
+                        class="block text-sm font-semibold text-slate-600 mb-1 uppercase tracking-wide"
+                    >
+                        {{ campo.label }}
+                    </label>
+
+                    {{ campo }}
+
+                    {% if campo.errors %}
+
+                        {% for error in campo.errors %}
+
+                            <p class="text-red-500 text-sm mt-1">
+                                {{ error }}
+                            </p>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+
+            <div class="flex justify-end gap-2 pt-4 border-t border-gray-100">
+
+                <a
+                    href="{% url 'catalogo' %}"
+                    class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2 rounded-lg transition text-sm"
+                >
+                    Cancelar
+                </a>
+
+                <button
+                    type="submit"
+                    class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2 rounded-lg transition"
+                >
+                    💾 Guardar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const inputs = document.querySelectorAll(
+        'input[type="text"], input[type="number"], input[type="email"], select, textarea'
+    );
+
+    inputs.forEach(el => {
+
+        el.classList.add(
+            'w-full',
+            'rounded-lg',
+            'border-gray-300',
+            'shadow-sm',
+            'px-3',
+            'py-2',
+            'focus:outline-none',
+            'focus:ring-2',
+            'focus:ring-emerald-500',
+            'focus:border-transparent'
+        );
+
+    });
+
+</script>
+
+{% endblock %}
