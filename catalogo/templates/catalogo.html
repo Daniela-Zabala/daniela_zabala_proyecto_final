@@ -1,280 +1,168 @@
-{% load static %}
+{% extends 'plantilla_paginas.html' %}
 
-<!DOCTYPE html>
-<html lang="es">
+{% block titulo_pagina %}
+Catálogo
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Catálogo - TechCovers</title>
+{% block contenido_dinamico %}
 
-    <style>
+<div class="catalogo-contenedor">
 
-        * {
-            box-sizing: border-box;
-        }
+    <div class="catalogo-titulo">
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f8f6f1;
-            color: #1E2932;
-        }
+        <h2>
+            Productos disponibles
+        </h2>
 
-        /* ENCABEZADO */
+        <p>
+            Consulta nuestros productos para dispositivos móviles.
+        </p>
 
-        .header-principal {
-            background-color: #E8DDC9;
-            min-height: 100px;
-            padding: 10px 30px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
+    </div>
 
-        .header-principal img {
-            width: 230px;
-            height: auto;
-        }
 
-        .titulo-header {
-            flex: 1;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #1E2932;
-        }
+    {% if productos %}
 
-        /* MENÚ */
+        <div class="productos">
 
-        .menu-principal {
-            background-color: #AECDD1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            padding: 15px 0;
-            width: 100%;
-        }
+            {% for producto in productos %}
 
-        .menu-principal a {
-            color: #1E2932;
-            text-decoration: none;
-            font-weight: bold;
-        }
+                <div class="producto">
 
-        .menu-principal a:hover {
-            text-decoration: underline;
-        }
+                    <span class="categoria">
+                        {{ producto.categoria.nombre }}
+                    </span>
 
-        /* CATÁLOGO */
+                    <h3>
+                        {{ producto.nombre }}
+                    </h3>
 
-        .contenedor-catalogo {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+                    <p>
+                        {{ producto.descripcion }}
+                    </p>
 
-        .titulo-catalogo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+                    <div class="precio">
+                        {{ producto.precio }} €
+                    </div>
 
-        .titulo-catalogo h2 {
-            margin-bottom: 8px;
-        }
+                    <div class="stock">
+                        Existencias: {{ producto.stock }}
+                    </div>
 
-        .titulo-catalogo p {
-            color: #64748B;
-        }
+                </div>
 
-        /* PRODUCTOS */
-
-        .productos {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .producto {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
-        }
-
-        .producto h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #1E2932;
-        }
-
-        .producto p {
-            color: #64748B;
-            line-height: 1.5;
-        }
-
-        .categoria {
-            display: inline-block;
-            background-color: #AECDD1;
-            color: #1E2932;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .precio {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 15px;
-            color: #1E2932;
-        }
-
-        .stock {
-            font-size: 14px;
-            color: #64748B;
-        }
-
-        /* MENSAJE SI NO HAY PRODUCTOS */
-
-        .sin-productos {
-            text-align: center;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 800px) {
-
-            .header-principal {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .header-principal img {
-                width: 200px;
-            }
-
-            .titulo-header {
-                width: 100%;
-            }
-
-            .menu-principal {
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .productos {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <header>
-
-        <div class="header-principal">
-
-            <img
-                src="{% static 'imagenes/logo_principal.png' %}"
-                alt="TechCovers"
-            >
-
-            <div class="titulo-header">
-                Catálogo
-            </div>
+            {% endfor %}
 
         </div>
 
-    </header>
+    {% else %}
 
+        <div class="sin-productos">
 
-    <nav class="menu-principal">
-
-        <a href="{% url 'inicio' %}">Inicio</a>
-
-        <a href="{% url 'catalogo' %}">Catálogo</a>
-
-        <a href="{% url 'contacto' %}">Contacto</a>
-
-    </nav>
-
-
-    <!-- CONTENIDO DEL CATÁLOGO -->
-
-    <main class="contenedor-catalogo">
-
-        <div class="titulo-catalogo">
-
-            <h2>Productos disponibles</h2>
+            <h3>
+                No hay productos disponibles
+            </h3>
 
             <p>
-                Consulta nuestros accesorios para dispositivos móviles.
+                Actualmente no hay productos registrados en el catálogo.
             </p>
 
         </div>
 
+    {% endif %}
 
-        {% if productos %}
+</div>
 
-            <div class="productos">
 
-                {% for producto in productos %}
+<style>
 
-                    <div class="producto">
+    .catalogo-contenedor {
+        max-width: 1100px;
+        margin: 50px auto;
+        padding: 0 25px;
+    }
 
-                        <span class="categoria">
-                            {{ producto.categoria.nombre }}
-                        </span>
+    .catalogo-titulo {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-                        <h3>
-                            {{ producto.nombre }}
-                        </h3>
+    .catalogo-titulo h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
 
-                        <p>
-                            {{ producto.descripcion }}
-                        </p>
+    .catalogo-titulo p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+    }
 
-                        <div class="precio">
-                            {{ producto.precio }} €
-                        </div>
+    .productos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
 
-                        <div class="stock">
-                            Existencias: {{ producto.stock }}
-                        </div>
+    .producto {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
 
-                    </div>
+    .producto h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: #1E2932;
+    }
 
-                {% endfor %}
+    .producto p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+    }
 
-            </div>
+    .categoria {
+        display: inline-block;
+        background-color: #AECDD1;
+        color: #1E2932;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-family: Arial, sans-serif;
+    }
 
-        {% else %}
+    .precio {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 15px;
+        color: #1E2932;
+    }
 
-            <div class="sin-productos">
+    .stock {
+        font-size: 14px;
+        color: #64748B;
+        font-family: Arial, sans-serif;
+        margin-top: 5px;
+    }
 
-                <h3>No hay productos disponibles</h3>
+    .sin-productos {
+        text-align: center;
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+    }
 
-                <p>
-                    Actualmente no hay productos registrados en el catálogo.
-                </p>
+    @media (max-width: 800px) {
 
-            </div>
+        .productos {
+            grid-template-columns: 1fr;
+        }
 
-        {% endif %}
+    }
 
-    </main>
+</style>
 
-</body>
-
-</html>
+{% endblock %}
