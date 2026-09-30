@@ -1,0 +1,80 @@
+{% extends 'plantilla_paginas.html' %}
+
+{% block titulo_pagina %}
+Error del servidor
+{% endblock %}
+
+{% block contenido_dinamico %}
+
+<div class="error-contenedor">
+
+    <div class="error-numero">
+        500
+    </div>
+
+    <h2>
+        Error interno del servidor
+    </h2>
+
+    <p>
+        Se ha producido un problema al procesar la solicitud.
+        Puedes volver al inicio e intentarlo de nuevo.
+    </p>
+
+    <a href="{% url 'inicio' %}" class="boton-error">
+        Volver al inicio
+    </a>
+
+</div>
+
+
+<style>
+
+    .error-contenedor {
+        max-width: 800px;
+        margin: 80px auto;
+        padding: 50px 25px;
+        text-align: center;
+        background-color: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .error-numero {
+        font-size: 80px;
+        font-weight: bold;
+        color: #AECDD1;
+        margin-bottom: 10px;
+    }
+
+    .error-contenedor h2 {
+        font-size: 30px;
+        margin-bottom: 15px;
+        color: #1E2932;
+    }
+
+    .error-contenedor p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .boton-error {
+        display: inline-block;
+        background-color: #AECDD1;
+        color: #1E2932;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .boton-error:hover {
+        text-decoration: underline;
+    }
+
+</style>
+
+{% endblock %}
