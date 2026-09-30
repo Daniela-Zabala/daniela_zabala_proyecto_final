@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 
 from .forms import ProductoForm, RegistroUsuarioForm
-from .models import Producto
+from .models import Producto, Reserva
 
 
 # Vista de la página de inicio
@@ -76,7 +76,7 @@ def registro(request):
     )
 
 
-# Vista para iniciar sesión
+#Vista para iniciar sesión
 def iniciar_sesion(request):
 
     if request.method == 'POST':
@@ -104,3 +104,23 @@ def iniciar_sesion(request):
             )
 
     return render(request, 'registro/login.html')
+
+
+#Vista para consultar las reservas del usuario
+def mis_reservas(request):
+
+    if request.user.is_authenticated:
+
+        reservas = Reserva.objects.filter(
+            usuario=request.user
+        )
+
+        return render(
+            request,
+            'mis_reservas.html',
+            {
+                'reservas': reservas
+            }
+        )
+
+    return redirect('login')

@@ -57,9 +57,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 50px;
-            padding: 15px 0;
+            gap: 35px;
+            padding: 15px 20px;
             width: 100%;
+            flex-wrap: wrap;
         }
 
         .menu-principal a {
@@ -69,6 +70,28 @@
         }
 
         .menu-principal a:hover {
+            text-decoration: underline;
+        }
+
+        .usuario-nombre {
+            font-weight: bold;
+        }
+
+        .menu-principal form {
+            margin: 0;
+        }
+
+        .boton-salir {
+            background: none;
+            border: none;
+            color: #1E2932;
+            font-family: Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .boton-salir:hover {
             text-decoration: underline;
         }
 
@@ -139,7 +162,6 @@
             }
 
             .menu-principal {
-                flex-wrap: wrap;
                 gap: 20px;
             }
 
@@ -170,9 +192,11 @@
         >
 
         <div class="titulo-header">
+
             {% block titulo_pagina %}
             TechCovers
             {% endblock %}
+
         </div>
 
     </header>
@@ -193,6 +217,51 @@
         <a href="{% url 'contacto' %}">
             Contacto
         </a>
+
+
+        {% if user.is_authenticated %}
+
+            <!-- Usuario conectado -->
+
+            <span class="usuario-nombre">
+                {{ user.username }}
+            </span>
+
+            <!-- Mis reservas -->
+
+            <a href="{% url 'mis_reservas' %}">
+                Mis reservas
+            </a>
+
+            <!-- Cerrar sesión -->
+
+            <form method="POST" action="{% url 'logout' %}">
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="boton-salir"
+                >
+                    Salir
+                </button>
+
+            </form>
+
+
+        {% else %}
+
+            <!-- Usuario no conectado -->
+
+            <a href="{% url 'registro' %}">
+                Registrarse
+            </a>
+
+            <a href="{% url 'login' %}">
+                Iniciar sesión
+            </a>
+
+        {% endif %}
 
     </nav>
 

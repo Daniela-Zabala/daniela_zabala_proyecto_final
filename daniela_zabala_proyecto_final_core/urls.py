@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from catalogo import views
 
@@ -39,15 +40,31 @@ urlpatterns = [
 
     #registro de usuarios
     path(
-        'registro/',
+        'accounts/registro/',
         views.registro,
         name='registro'
     ),
 
     #inicio de sesion
     path(
-        'login/',
-        views.iniciar_sesion,
+        'accounts/login/',
+        auth_views.LoginView.as_view(
+            template_name='registro/login.html'
+        ),
         name='login'
+    ),
+
+    #cierre de sesion
+    path(
+        'accounts/logout/',
+        auth_views.LogoutView.as_view(),
+        name='logout'
+    ),
+
+    #mis reservas
+    path(
+        'mis-reservas/',
+        views.mis_reservas,
+        name='mis_reservas'
     ),
 ]

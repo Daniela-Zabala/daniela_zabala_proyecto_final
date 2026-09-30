@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,15 +13,108 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- Cabecera principal de TechCovers -->
+    <header class="bg-slate-900 shadow-lg">
+
+        <nav class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <!-- Logo y nombre de TechCovers -->
+            <a href="{% url 'inicio' %}"
+               class="text-2xl font-bold text-white hover:text-emerald-400 transition">
+
+                TechCovers
+
+            </a>
+
+            <!-- Navegación y usuario -->
+            <div class="flex items-center gap-3">
+
+                <!-- Enlaces principales -->
+                <a href="{% url 'inicio' %}"
+                   class="text-slate-300 hover:text-white transition text-sm">
+                    Inicio
+                </a>
+
+                <a href="{% url 'catalogo' %}"
+                   class="text-slate-300 hover:text-white transition text-sm">
+                    Catálogo
+                </a>
+
+                <a href="{% url 'contacto' %}"
+                   class="text-slate-300 hover:text-white transition text-sm">
+                    Contacto
+                </a>
+
+                {% if user.is_authenticated %}
+
+                    <!-- Usuario conectado -->
+                    <span class="text-slate-300 text-sm hidden md:inline">
+                        {{ user.username }}
+                    </span>
+
+                    <!-- Mis reservas -->
+                    <a href="#"
+                       class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded-lg transition text-sm">
+                        Mis reservas
+                    </a>
+
+                    <!-- Cerrar sesión -->
+                    <form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-4 py-2 rounded-lg transition text-sm">
+
+                            Salir
+
+                        </button>
+
+                    </form>
+
+                {% else %}
+
+                    <!-- Usuario no conectado -->
+                    <a href="{% url 'registro' %}"
+                       class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded-lg transition text-sm">
+
+                        Crear cuenta
+
+                    </a>
+
+                    <a href="{% url 'login' %}"
+                       class="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-4 py-2 rounded-lg transition text-sm">
+
+                        Iniciar sesión
+
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </nav>
+
+    </header>
+
 
     <!-- Contenido de las diferentes páginas -->
-    <main class="container mx-auto px-4 py-10">
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8">
 
         {% block contenido_dinamico %}
         {% endblock %}
 
     </main>
+
+
+    <!-- Pie de página -->
+    <footer class="bg-slate-900 text-slate-400 text-center text-sm py-4">
+
+        TechCovers · Plataforma de consulta y reserva de accesorios para móviles
+
+    </footer>
 
 </body>
 

@@ -1,0 +1,190 @@
+{% extends 'plantilla_paginas.html' %}
+
+{% block titulo_pagina %}
+Mis reservas
+{% endblock %}
+
+{% block contenido_dinamico %}
+
+<div class="reservas-contenedor">
+
+    <div class="reservas-titulo">
+
+        <h2>Mis reservas</h2>
+
+        <p>
+            Aquí puedes consultar las reservas que has realizado.
+        </p>
+
+    </div>
+
+
+    {% if reservas %}
+
+        <div class="reservas-lista">
+
+            {% for reserva in reservas %}
+
+                <div class="reserva">
+
+                    <h3>
+                        Reserva nº {{ reserva.id }}
+                    </h3>
+
+                    <p>
+                        Fecha:
+                        {{ reserva.fecha }}
+                    </p>
+
+                    <p>
+                        Estado:
+                        {{ reserva.estado }}
+                    </p>
+
+                    <h4>
+                        Productos reservados
+                    </h4>
+
+                    {% for producto_reserva in reserva.productos.all %}
+
+                        <div class="producto-reserva">
+
+                            <span>
+                                {{ producto_reserva.producto.nombre }}
+                            </span>
+
+                            <span>
+                                Cantidad:
+                                {{ producto_reserva.cantidad }}
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="sin-reservas">
+
+            <h3>
+                No tienes reservas
+            </h3>
+
+            <p>
+                Actualmente no has realizado ninguna reserva.
+            </p>
+
+            <a href="{% url 'catalogo' %}">
+                Ir al catálogo
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<style>
+
+    .reservas-contenedor {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 0 25px;
+    }
+
+    .reservas-titulo {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .reservas-titulo h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .reservas-titulo p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+    }
+
+    .reservas-lista {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .reserva {
+        background-color: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .reserva h3 {
+        margin-top: 0;
+        color: #1E2932;
+    }
+
+    .reserva p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+    }
+
+    .reserva h4 {
+        margin-top: 20px;
+        color: #1E2932;
+    }
+
+    .producto-reserva {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e5e7eb;
+        font-family: Arial, sans-serif;
+    }
+
+    .sin-reservas {
+        background-color: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 35px;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .sin-reservas p {
+        color: #64748B;
+        font-family: Arial, sans-serif;
+    }
+
+    .sin-reservas a {
+        display: inline-block;
+        margin-top: 15px;
+        background-color: #AECDD1;
+        color: #1E2932;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+
+        .producto-reserva {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
