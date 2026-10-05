@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import permission_required
 
 from .forms import ProductoForm, RegistroUsuarioForm
 from .models import Producto, Reserva
@@ -30,6 +31,10 @@ def contacto(request):
 
 
 # Vista para crear un nuevo producto
+@permission_required(
+    'catalogo.add_producto',
+    raise_exception=True
+)  #limitar al adm para que solo ese usuario pueda crear prod
 def crear_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST)
@@ -47,6 +52,43 @@ def crear_producto(request):
         {
             'form': form,
             'titulo_formulario': '📦 Añadir nuevo producto',
+        }
+    )
+
+
+# Vista para editar un producto
+@permission_required(
+    'catalogo.change_producto',
+    raise_exception=True
+)  #limitar al adm para que solo ese usuario pueda editar prod
+def editar_producto(request, producto_id):
+
+    producto = get_object_or_404(
+        Producto,
+        id=producto_id
+    )
+
+    if request.method == 'POST':
+        form = ProductoForm(
+            request.POST,
+            instance=producto
+        )
+
+        if form.is_valid():
+            form.save()
+            return redirect('catalogo')
+
+    else:
+        form = ProductoForm(
+            instance=producto
+        )
+
+    return render(
+        request,
+        'formulario.html',
+        {
+            'form': form,
+            'titulo_formulario': '✏️ Editar producto',
         }
     )
 

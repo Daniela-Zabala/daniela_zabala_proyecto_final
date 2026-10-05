@@ -19,6 +19,14 @@ Catálogo
             Consulta nuestros productos para dispositivos móviles.
         </p>
 
+        {% if perms.catalogo.add_producto %}
+
+            <a href="{% url 'crear_producto' %}" class="boton-anadir">
+                Añadir producto
+            </a>
+
+        {% endif %}
+
     </div>
 
 
@@ -49,6 +57,17 @@ Catálogo
                     <div class="stock">
                         Existencias: {{ producto.stock }}
                     </div>
+
+                    {% if perms.catalogo.change_producto %}
+
+                        <a
+                            href="{% url 'editar_producto' producto.id %}"
+                            class="boton-editar"
+                        >
+                            ✏️ Editar
+                        </a>
+
+                    {% endif %}
 
                 </div>
 
@@ -96,6 +115,21 @@ Catálogo
     .catalogo-titulo p {
         color: #64748B;
         font-family: Arial, sans-serif;
+    }
+
+    .boton-anadir {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #AECDD1;
+        color: #1E2932;
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .boton-anadir:hover {
+        background-color: #8FB8BD;
     }
 
     .productos {
@@ -146,6 +180,22 @@ Catálogo
         color: #64748B;
         font-family: Arial, sans-serif;
         margin-top: 5px;
+    }
+
+    .boton-editar {
+        display: inline-block;
+        margin-top: 15px;
+        background-color: #E8DDC9;
+        color: #1E2932;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .boton-editar:hover {
+        background-color: #d8cbb4;
     }
 
     .sin-productos {

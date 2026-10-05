@@ -38,6 +38,12 @@ urlpatterns = [
         name='crear_producto'
     ),
 
+    path(
+        'producto/editar/<int:producto_id>/',
+        views.editar_producto,
+        name='editar_producto'
+    ),
+
     #registro de usuarios
     path(
         'accounts/registro/',

@@ -1,0 +1,70 @@
+#error de acceso
+{% extends 'plantilla_paginas.html' %}
+
+{% block titulo_pagina %}
+Acceso denegado
+{% endblock %}
+
+{% block contenido_dinamico %}
+
+<div class="error-contenedor">
+
+    <div class="error-numero">403</div>
+
+    <h2>Acceso denegado</h2>
+
+    <p>
+        Este usuario no tiene permisos para acceder a esta página.
+    </p>
+
+    <a href="{% url 'inicio' %}" class="boton-error">
+        Volver al inicio
+    </a>
+
+</div>
+
+<style>
+
+.error-contenedor {
+    max-width: 700px;
+    margin: 70px auto;
+    text-align: center;
+    padding: 40px 25px;
+}
+
+.error-numero {
+    font-size: 100px;
+    font-weight: bold;
+    color: #AECDD1;
+    margin-bottom: 10px;
+}
+
+.error-contenedor h2 {
+    font-size: 30px;
+    color: #1E2932;
+    margin-bottom: 20px;
+}
+
+.error-contenedor p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.boton-error {
+    display: inline-block;
+    background-color: #AECDD1;
+    color: #1E2932;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.boton-error:hover {
+    background-color: #8FB8BD;
+}
+
+</style>
+
+{% endblock %}
