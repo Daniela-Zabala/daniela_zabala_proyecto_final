@@ -93,6 +93,31 @@ def editar_producto(request, producto_id):
     )
 
 
+# Vista para eliminar un producto
+@permission_required(
+    'catalogo.delete_producto',
+    raise_exception=True
+)  #limitar al adm para que solo ese usuario pueda eliminar prod
+def eliminar_producto(request, producto_id):
+
+    producto = get_object_or_404(
+        Producto,
+        id=producto_id
+    )
+
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('catalogo')
+
+    return render(
+        request,
+        'confirmar_eliminar.html',
+        {
+            'producto': producto
+        }
+    )
+
+
 # Vista para registrar un nuevo usuario
 def registro(request):
 

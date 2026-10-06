@@ -58,6 +58,7 @@ Catálogo
                         Existencias: {{ producto.stock }}
                     </div>
 
+
                     {% if perms.catalogo.change_producto %}
 
                         <a
@@ -65,6 +66,18 @@ Catálogo
                             class="boton-editar"
                         >
                             ✏️ Editar
+                        </a>
+
+                    {% endif %}
+
+
+                    {% if perms.catalogo.delete_producto %}
+
+                        <a
+                            href="{% url 'eliminar_producto' producto.id %}"
+                            class="boton-eliminar"
+                        >
+                            🗑️ Eliminar
                         </a>
 
                     {% endif %}
@@ -196,6 +209,23 @@ Catálogo
 
     .boton-editar:hover {
         background-color: #d8cbb4;
+    }
+
+    .boton-eliminar {
+        display: inline-block;
+        margin-top: 15px;
+        margin-left: 5px;
+        background-color: #AECDD1;
+        color: #1E2932;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .boton-eliminar:hover {
+        background-color: #8FB8BD;
     }
 
     .sin-productos {

@@ -44,6 +44,12 @@ urlpatterns = [
         name='editar_producto'
     ),
 
+    path(
+        'producto/eliminar/<int:producto_id>/',
+        views.eliminar_producto,
+        name='eliminar_producto'
+    ),
+
     #registro de usuarios
     path(
         'accounts/registro/',

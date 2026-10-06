@@ -11,6 +11,9 @@
 
     <title>TechCovers</title>
 
+    <!-- Tailwind CSS para los formularios -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
 
         * {
@@ -35,6 +38,7 @@
             padding: 10px 30px;
             display: flex;
             align-items: center;
+            position: relative;
         }
 
         .logo-header {
@@ -43,11 +47,56 @@
         }
 
         .titulo-header {
-            flex: 1;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
             font-size: 28px;
             font-weight: bold;
-            margin-right: 230px;
+        }
+
+        /* USUARIO EN LA CABECERA */
+
+        .usuario-header {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .usuario-nombre {
+            font-weight: bold;
+        }
+
+        .usuario-header a {
+            color: #1E2932;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .usuario-header a:hover {
+            text-decoration: underline;
+        }
+
+        .usuario-header form {
+            margin: 0;
+        }
+
+        .boton-salir {
+            background: none;
+            border: none;
+            color: #1E2932;
+            font-family: Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .boton-salir:hover {
+            text-decoration: underline;
         }
 
         /* MENÚ */
@@ -70,28 +119,6 @@
         }
 
         .menu-principal a:hover {
-            text-decoration: underline;
-        }
-
-        .usuario-nombre {
-            font-weight: bold;
-        }
-
-        .menu-principal form {
-            margin: 0;
-        }
-
-        .boton-salir {
-            background: none;
-            border: none;
-            color: #1E2932;
-            font-family: Georgia, serif;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .boton-salir:hover {
             text-decoration: underline;
         }
 
@@ -149,6 +176,7 @@
             .header-principal {
                 flex-wrap: wrap;
                 justify-content: center;
+                padding: 15px;
             }
 
             .logo-header {
@@ -157,7 +185,12 @@
 
             .titulo-header {
                 width: 100%;
-                margin-right: 0;
+                margin-top: 10px;
+            }
+
+            .usuario-header {
+                position: static;
+                transform: none;
                 margin-top: 10px;
             }
 
@@ -191,11 +224,61 @@
             class="logo-header"
         >
 
+
         <div class="titulo-header">
 
             {% block titulo_pagina %}
             TechCovers
             {% endblock %}
+
+        </div>
+
+
+        <!-- USUARIO -->
+
+        <div class="usuario-header">
+
+            {% if user.is_authenticated %}
+
+                <!-- Usuario conectado -->
+
+                <span class="usuario-nombre">
+                    {{ user.username }}
+                </span>
+
+
+                <!-- Mis reservas -->
+
+                <a href="{% url 'mis_reservas' %}">
+                    Mis reservas
+                </a>
+
+
+                <!-- Cerrar sesión -->
+
+                <form method="POST" action="{% url 'logout' %}">
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="boton-salir"
+                    >
+                        Salir
+                    </button>
+
+                </form>
+
+
+            {% else %}
+
+                <!-- Usuario no conectado -->
+
+                <a href="{% url 'login' %}">
+                    Iniciar sesión
+                </a>
+
+            {% endif %}
 
         </div>
 
@@ -217,51 +300,6 @@
         <a href="{% url 'contacto' %}">
             Contacto
         </a>
-
-
-        {% if user.is_authenticated %}
-
-            <!-- Usuario conectado -->
-
-            <span class="usuario-nombre">
-                {{ user.username }}
-            </span>
-
-            <!-- Mis reservas -->
-
-            <a href="{% url 'mis_reservas' %}">
-                Mis reservas
-            </a>
-
-            <!-- Cerrar sesión -->
-
-            <form method="POST" action="{% url 'logout' %}">
-
-                {% csrf_token %}
-
-                <button
-                    type="submit"
-                    class="boton-salir"
-                >
-                    Salir
-                </button>
-
-            </form>
-
-
-        {% else %}
-
-            <!-- Usuario no conectado -->
-
-            <a href="{% url 'registro' %}">
-                Registrarse
-            </a>
-
-            <a href="{% url 'login' %}">
-                Iniciar sesión
-            </a>
-
-        {% endif %}
 
     </nav>
 
