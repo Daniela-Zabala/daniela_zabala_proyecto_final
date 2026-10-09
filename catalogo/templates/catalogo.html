@@ -59,6 +59,22 @@ Catálogo
                     </div>
 
 
+                    <!-- Reservar producto -->
+
+                    {% if user.is_authenticated and producto.stock > 0 %}
+
+                        <a
+                            href="{% url 'crear_reserva' producto.id %}"
+                            class="boton-reservar"
+                        >
+                            📋 Reservar
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- Opciones de administración -->
+
                     {% if perms.catalogo.change_producto %}
 
                         <a
@@ -193,6 +209,22 @@ Catálogo
         color: #64748B;
         font-family: Arial, sans-serif;
         margin-top: 5px;
+    }
+
+    .boton-reservar {
+        display: inline-block;
+        margin-top: 15px;
+        background-color: #AECDD1;
+        color: #1E2932;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .boton-reservar:hover {
+        background-color: #8FB8BD;
     }
 
     .boton-editar {

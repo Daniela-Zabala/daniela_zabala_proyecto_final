@@ -147,3 +147,48 @@ MAILERS = {
 
 LOGIN_REDIRECT_URL = '/catalogo/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+
+# Confg de logs
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'formato_logs': {
+            'format': (
+                '{levelname} | {asctime} | '
+                '{name} | {message}'
+            ),
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'consola': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'formato_logs',
+        },
+        'archivo': {
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'techcovers.log',
+            'formatter': 'formato_logs',
+            'encoding': 'utf-8',
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['consola', 'archivo'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'catalogo': {
+            'handlers': ['consola', 'archivo'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

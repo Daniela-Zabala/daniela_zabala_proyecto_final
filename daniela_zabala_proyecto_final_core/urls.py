@@ -50,6 +50,25 @@ urlpatterns = [
         name='eliminar_producto'
     ),
 
+    #reservas
+    path(
+        'reserva/nueva/<int:producto_id>/',
+        views.crear_reserva,
+        name='crear_reserva'
+    ),
+
+    path(
+        'reserva/editar/<int:reserva_id>/',
+        views.editar_reserva,
+        name='editar_reserva'
+    ),
+
+    path(
+        'reserva/eliminar/<int:reserva_id>/',
+        views.eliminar_reserva,
+        name='eliminar_reserva'
+    ),
+
     #registro de usuarios
     path(
         'accounts/registro/',
