@@ -1,6 +1,8 @@
 
 import logging
 
+from .excepciones import StockInsuficienteError
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -11,7 +13,7 @@ from .forms import ProductoForm, RegistroUsuarioForm
 from .models import Producto, Reserva, Producto_reserva
 
 
-# Confg del logger
+# Configuración del logger
 logger = logging.getLogger(__name__)
 
 
@@ -38,7 +40,7 @@ def contacto(request):
     return render(request, 'contacto.html')
 
 
-# Vista para crear un nuevo prod
+# Vista para crear un nuevo producto
 @permission_required(
     'catalogo.add_producto',
     raise_exception=True
@@ -76,7 +78,7 @@ def crear_producto(request):
     )
 
 
-# Vista para editar un prod
+# Vista para editar un producto
 @permission_required(
     'catalogo.change_producto',
     raise_exception=True
@@ -131,7 +133,7 @@ def editar_producto(request, producto_id):
     )
 
 
-# Vista para eliminar un prod
+# Vista para eliminar un producto
 @permission_required(
     'catalogo.delete_producto',
     raise_exception=True
@@ -284,17 +286,26 @@ def crear_reserva(request, producto_id):
                 }
             )
 
-        if cantidad > producto.stock:
+        # Comprobar el stock mediante una excepción personalizada
+        try:
+            if cantidad > producto.stock:
+                raise StockInsuficienteError(
+                    "No hay suficientes existencias disponibles."
+                )
+
+        except StockInsuficienteError as error:
             logger.warning(
-                "Stock insuficiente para el producto ID %s",
-                producto_id
+                "Stock insuficiente para el producto ID %s: %s",
+                producto_id,
+                error
             )
+
             return render(
                 request,
                 'crear_reserva.html',
                 {
                     'producto': producto,
-                    'error': 'No hay suficientes existencias disponibles.'
+                    'error': str(error)
                 }
             )
 
@@ -404,14 +415,23 @@ def editar_reserva(request, reserva_id):
             )
 
         # Las unidades que ya estaban reservadas vuelven a estar
-        # disponibles para calcular el nuevo stock max
+        # disponibles para calcular el nuevo stock máximo.
         stock_disponible = producto.stock + cantidad_actual
 
-        if nueva_cantidad > stock_disponible:
+        # Comprobar el stock mediante una excepción personalizada
+        try:
+            if nueva_cantidad > stock_disponible:
+                raise StockInsuficienteError(
+                    "No hay suficientes existencias disponibles."
+                )
+
+        except StockInsuficienteError as error:
             logger.warning(
-                "Stock insuficiente al editar la reserva ID %s",
-                reserva_id
+                "Stock insuficiente al editar la reserva ID %s: %s",
+                reserva_id,
+                error
             )
+
             return render(
                 request,
                 'editar_reserva.html',
@@ -419,7 +439,7 @@ def editar_reserva(request, reserva_id):
                     'reserva': reserva,
                     'producto_reserva': producto_reserva,
                     'producto': producto,
-                    'error': 'No hay suficientes existencias disponibles.'
+                    'error': str(error)
                 }
             )
 
