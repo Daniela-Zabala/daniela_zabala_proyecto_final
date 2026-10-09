@@ -1,9 +1,11 @@
+"""Modelos de datos de TechCovers."""
 from django.db import models
 #mi tabla de reserva este conectada con con usuarios
 from django.contrib.auth.models import User
 
 
 class Categoria(models.Model):
+    """Representa una categoría de productos."""
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
 
@@ -15,6 +17,7 @@ class Categoria(models.Model):
 #Relacion catgoria producto 1:N
 
 class Producto(models.Model):
+    """Representa un accesorio del catálogo."""
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -26,10 +29,12 @@ class Producto(models.Model):
     )
 
     def __str__(self):
+        """Devuelve el nombre del producto."""
         return self.nombre
 
 
 class Reserva(models.Model):
+    """Representa una reserva realizada por un usuario."""
     usuario = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -39,6 +44,7 @@ class Reserva(models.Model):
     estado = models.CharField(max_length=50)
 
     def __str__(self):
+        """Devuelve el identificador y el usuario de la reserva."""
         return f"Reserva {self.id} - {self.usuario.username}"
 
 #indicamos que productos hay qn cada reserva y cuantas unidades se han reservado
