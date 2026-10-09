@@ -152,6 +152,29 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 # Confg de logs
+RUTA_LOGS = BASE_DIR / 'logs'
+
+HANDLERS_LOGS = {
+    'consola': {
+        'class': 'logging.StreamHandler',
+        'formatter': 'formato_logs',
+    },
+}
+
+DESTINOS_LOGS = ['consola']
+
+# Guardar logs en archivo cuando existe la carpeta local.
+# En Vercel utilizaremos la consola.
+if RUTA_LOGS.is_dir() and not os.getenv('VERCEL'):
+    HANDLERS_LOGS['archivo'] = {
+        'class': 'logging.FileHandler',
+        'filename': RUTA_LOGS / 'techcovers.log',
+        'formatter': 'formato_logs',
+        'encoding': 'utf-8',
+    }
+    DESTINOS_LOGS.append('archivo')
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -166,27 +189,16 @@ LOGGING = {
         },
     },
 
-    'handlers': {
-        'consola': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'formato_logs',
-        },
-        'archivo': {
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'techcovers.log',
-            'formatter': 'formato_logs',
-            'encoding': 'utf-8',
-        },
-    },
+    'handlers': HANDLERS_LOGS,
 
     'loggers': {
         'django': {
-            'handlers': ['consola', 'archivo'],
+            'handlers': DESTINOS_LOGS,
             'level': 'WARNING',
             'propagate': False,
         },
         'catalogo': {
-            'handlers': ['consola', 'archivo'],
+            'handlers': DESTINOS_LOGS,
             'level': 'INFO',
             'propagate': False,
         },
