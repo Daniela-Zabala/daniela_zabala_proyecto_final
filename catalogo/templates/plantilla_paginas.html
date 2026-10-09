@@ -75,6 +75,7 @@
             color: #1E2932;
             text-decoration: none;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .usuario-header a:hover {
@@ -269,16 +270,21 @@
 
                 </form>
 
+                
+                {% else %}
 
-            {% else %}
+                    <!-- Usuario no conectado -->
 
-                <!-- Usuario no conectado -->
+                    <a href="{% url 'login' %}">
+                        Iniciar sesión
+                    </a>
 
-                <a href="{% url 'login' %}">
-                    Iniciar sesión
-                </a>
+                    <a href="{% url 'registro' %}">
+                        Registrarse
+                    </a>
 
-            {% endif %}
+                {% endif %}
+
 
         </div>
 
