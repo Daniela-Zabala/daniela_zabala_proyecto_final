@@ -1,29 +1,45 @@
+"""Vistas de TechCovers para gestionar el catálogo y las reservas."""
 
 import logging
 
 from .excepciones import StockInsuficienteError
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import permission_required, login_required
 from django.db import transaction
-
 from .forms import ProductoForm, RegistroUsuarioForm
 from .models import Producto, Reserva, Producto_reserva
 
 
-# Configuración del logger
+#Configuración del logger
 logger = logging.getLogger(__name__)
 
 
-# Vista de la página de inicio
+class ValidadorStock:
+    """Valida el stock disponible para las reservas."""
+
+    def __init__(self, stock):
+        """Guarda el stock en un atributo privado."""
+        self.__stock = stock
+
+    def validar(self, cantidad):
+        """Comprueba que la cantidad no supere el stock."""
+        if cantidad > self.__stock:
+            raise StockInsuficienteError(
+                "No hay suficientes existencias disponibles."
+            )
+
+
+#Vista de la página de inicio
 def inicio(request):
+    """Muestra la página principal de TechCovers."""
     return render(request, 'inicio.html')
 
 
-# Vista del catálogo
+#Vista del catálogo
 def catalogo(request):
+    """Muestra los productos disponibles en el catálogo."""
     productos = Producto.objects.all()
 
     return render(
@@ -35,17 +51,22 @@ def catalogo(request):
     )
 
 
-# Vista de la página de contacto
+#Vista de la página de contacto
 def contacto(request):
+    """Muestra la página de contacto."""
     return render(request, 'contacto.html')
 
 
-# Vista para crear un nuevo producto
+#Vista para crear un nuevo producto
+#limitar al adm para que solo ese usuario pueda crear prod
 @permission_required(
     'catalogo.add_producto',
     raise_exception=True
-)  #limitar al adm para que solo ese usuario pueda crear prod
+)
+
+  
 def crear_producto(request):
+    """Permite al administrador crear un producto."""
     if request.method == 'POST':
         form = ProductoForm(request.POST)
 
@@ -78,13 +99,16 @@ def crear_producto(request):
     )
 
 
-# Vista para editar un producto
+#Vista para editar un producto
+#limitar al adm para que solo ese usuario pueda editar prod
 @permission_required(
     'catalogo.change_producto',
     raise_exception=True
-)  #limitar al adm para que solo ese usuario pueda editar prod
-def editar_producto(request, producto_id):
+)  
 
+
+def editar_producto(request, producto_id):
+    """Permite al administrador modificar un producto existente."""
     producto = get_object_or_404(
         Producto,
         id=producto_id
@@ -133,13 +157,16 @@ def editar_producto(request, producto_id):
     )
 
 
-# Vista para eliminar un producto
+#Vista para eliminar un producto
+#limitar al adm para que solo ese usuario pueda eliminar prod
 @permission_required(
     'catalogo.delete_producto',
     raise_exception=True
-)  #limitar al adm para que solo ese usuario pueda eliminar prod
-def eliminar_producto(request, producto_id):
+) 
+ 
 
+def eliminar_producto(request, producto_id):
+    """Permite al administrador eliminar un producto."""
     producto = get_object_or_404(
         Producto,
         id=producto_id
@@ -173,9 +200,9 @@ def eliminar_producto(request, producto_id):
     )
 
 
-# Vista para registrar un nuevo usuario
+#Vista para registrar un nuevo usuario
 def registro(request):
-
+    """Gestiona el registro de nuevos usuarios."""
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
 
@@ -210,9 +237,8 @@ def registro(request):
 
 #Vista para iniciar sesión
 def iniciar_sesion(request):
-
+    """Autentica al usuario e inicia su sesión."""
     if request.method == 'POST':
-
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -246,14 +272,13 @@ def iniciar_sesion(request):
 # Vista para crear una reserva
 @login_required
 def crear_reserva(request, producto_id):
-
+    """Crea una reserva y actualiza el stock del producto."""
     producto = get_object_or_404(
         Producto,
         id=producto_id
     )
 
     if request.method == 'POST':
-
         try:
             cantidad = int(request.POST.get('cantidad', 1))
 
@@ -286,12 +311,9 @@ def crear_reserva(request, producto_id):
                 }
             )
 
-        # Comprobar el stock mediante una excepción personalizada
+        #Comprobar el stock mediante una excepción personalizada
         try:
-            if cantidad > producto.stock:
-                raise StockInsuficienteError(
-                    "No hay suficientes existencias disponibles."
-                )
+            ValidadorStock(producto.stock).validar(cantidad)
 
         except StockInsuficienteError as error:
             logger.warning(
@@ -299,7 +321,6 @@ def crear_reserva(request, producto_id):
                 producto_id,
                 error
             )
-
             return render(
                 request,
                 'crear_reserva.html',
@@ -352,10 +373,10 @@ def crear_reserva(request, producto_id):
     )
 
 
-# Vista para editar una reserva
+#Vista para editar una reserva
 @login_required
 def editar_reserva(request, reserva_id):
-
+    """Modifica la cantidad de productos de una reserva."""
     reserva = get_object_or_404(
         Reserva,
         id=reserva_id,
@@ -375,7 +396,6 @@ def editar_reserva(request, reserva_id):
     cantidad_actual = producto_reserva.cantidad
 
     if request.method == 'POST':
-
         try:
             nueva_cantidad = int(
                 request.POST.get('cantidad', cantidad_actual)
@@ -414,16 +434,13 @@ def editar_reserva(request, reserva_id):
                 }
             )
 
-        # Las unidades que ya estaban reservadas vuelven a estar
-        # disponibles para calcular el nuevo stock máximo.
+        #Las unidades reservadas vuelven a estar disponibles
+        #para calcular el nuevo stock máximo.
         stock_disponible = producto.stock + cantidad_actual
 
-        # Comprobar el stock mediante una excepción personalizada
+        #Comprobar el stock mediante una excepción personalizada
         try:
-            if nueva_cantidad > stock_disponible:
-                raise StockInsuficienteError(
-                    "No hay suficientes existencias disponibles."
-                )
+            ValidadorStock(stock_disponible).validar(nueva_cantidad)
 
         except StockInsuficienteError as error:
             logger.warning(
@@ -431,7 +448,6 @@ def editar_reserva(request, reserva_id):
                 reserva_id,
                 error
             )
-
             return render(
                 request,
                 'editar_reserva.html',
@@ -482,10 +498,10 @@ def editar_reserva(request, reserva_id):
     )
 
 
-# Vista para eliminar una reserva
+#Vista para eliminar una reserva
 @login_required
 def eliminar_reserva(request, reserva_id):
-
+    """Elimina una reserva y devuelve las unidades al stock."""
     reserva = get_object_or_404(
         Reserva,
         id=reserva_id,
@@ -493,16 +509,12 @@ def eliminar_reserva(request, reserva_id):
     )
 
     if request.method == 'POST':
-
         try:
             with transaction.atomic():
-
                 productos_reserva = reserva.productos.all()
 
                 for producto_reserva in productos_reserva:
-
                     producto = producto_reserva.producto
-
                     producto.stock += producto_reserva.cantidad
                     producto.save()
 
@@ -535,9 +547,8 @@ def eliminar_reserva(request, reserva_id):
 
 #Vista para consultar las reservas del usuario
 def mis_reservas(request):
-
+    """Muestra las reservas del usuario autenticado."""
     if request.user.is_authenticated:
-
         reservas = Reserva.objects.filter(
             usuario=request.user
         )

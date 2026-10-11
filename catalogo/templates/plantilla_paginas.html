@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -35,40 +36,45 @@
         .header-principal {
             background-color: #E8DDC9;
             min-height: 105px;
-            padding: 10px 30px;
+            padding: 15px 30px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 20px;
             position: relative;
         }
 
         .logo-header {
-            width: 230px;
+            width: 200px;
+            max-width: 100%;
             height: auto;
+            flex-shrink: 0;
         }
 
         .titulo-header {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            position: static;
+            transform: none;
             text-align: center;
             font-size: 28px;
             font-weight: bold;
+            flex: 1;
+            min-width: 0;
         }
 
         /* USUARIO EN LA CABECERA */
 
         .usuario-header {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 40%;
         }
 
         .usuario-nombre {
             font-weight: bold;
+            overflow-wrap: anywhere;
         }
 
         .usuario-header a {
@@ -127,6 +133,14 @@
 
         .contenido-principal {
             flex: 1;
+            width: 100%;
+            min-width: 0;
+        }
+
+        /* IMÁGENES Y ELEMENTOS ADAPTABLES */
+
+        img {
+            max-width: 100%;
         }
 
         /* FOOTER */
@@ -137,6 +151,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 30px;
             margin-top: 40px;
         }
 
@@ -148,6 +163,7 @@
         .footer-correo {
             font-family: Arial, sans-serif;
             margin-top: 10px;
+            overflow-wrap: anywhere;
         }
 
         .footer-enlaces {
@@ -170,40 +186,76 @@
             text-decoration: underline;
         }
 
-        /* RESPONSIVE */
+        /* RESPONSIVE: TABLETS Y MÓVILES */
 
         @media (max-width: 800px) {
 
             .header-principal {
-                flex-wrap: wrap;
+                flex-direction: column;
                 justify-content: center;
-                padding: 15px;
+                gap: 12px;
+                padding: 20px 15px;
             }
 
             .logo-header {
-                width: 200px;
+                width: 160px;
             }
 
             .titulo-header {
                 width: 100%;
-                margin-top: 10px;
+                font-size: 25px;
+                overflow-wrap: anywhere;
             }
 
             .usuario-header {
                 position: static;
                 transform: none;
-                margin-top: 10px;
+                max-width: 100%;
+                width: 100%;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: wrap;
+                font-size: 14px;
             }
 
             .menu-principal {
                 gap: 20px;
+                padding: 15px 10px;
             }
 
             .footer-principal {
                 flex-direction: column;
-                gap: 30px;
+                gap: 25px;
                 text-align: center;
-                padding: 30px;
+                padding: 30px 20px;
+            }
+
+            .footer-logo img {
+                width: 150px;
+            }
+
+        }
+
+        /* RESPONSIVE: MÓVILES PEQUEÑOS */
+
+        @media (max-width: 400px) {
+
+            .logo-header {
+                width: 135px;
+            }
+
+            .titulo-header {
+                font-size: 22px;
+            }
+
+            .usuario-header {
+                gap: 10px;
+                font-size: 13px;
+            }
+
+            .menu-principal {
+                gap: 12px;
+                font-size: 14px;
             }
 
         }
@@ -211,7 +263,6 @@
     </style>
 
 </head>
-
 
 <body>
 
@@ -225,7 +276,6 @@
             class="logo-header"
         >
 
-
         <div class="titulo-header">
 
             {% block titulo_pagina %}
@@ -233,7 +283,6 @@
             {% endblock %}
 
         </div>
-
 
         <!-- USUARIO -->
 
@@ -247,13 +296,11 @@
                     {{ user.username }}
                 </span>
 
-
                 <!-- Mis reservas -->
 
                 <a href="{% url 'mis_reservas' %}">
                     Mis reservas
                 </a>
-
 
                 <!-- Cerrar sesión -->
 
@@ -270,26 +317,23 @@
 
                 </form>
 
-                
-                {% else %}
+            {% else %}
 
-                    <!-- Usuario no conectado -->
+                <!-- Usuario no conectado -->
 
-                    <a href="{% url 'login' %}">
-                        Iniciar sesión
-                    </a>
+                <a href="{% url 'login' %}">
+                    Iniciar sesión
+                </a>
 
-                    <a href="{% url 'registro' %}">
-                        Registrarse
-                    </a>
+                <a href="{% url 'registro' %}">
+                    Registrarse
+                </a>
 
-                {% endif %}
-
+            {% endif %}
 
         </div>
 
     </header>
-
 
     <!-- MENÚ COMÚN -->
 
@@ -309,7 +353,6 @@
 
     </nav>
 
-
     <!-- CONTENIDO ESPECÍFICO DE CADA PÁGINA -->
 
     <main class="contenido-principal">
@@ -318,7 +361,6 @@
         {% endblock %}
 
     </main>
-
 
     <!-- FOOTER COMÚN DE TECHCOVERS -->
 
@@ -336,7 +378,6 @@
             </div>
 
         </div>
-
 
         <div class="footer-enlaces">
 
